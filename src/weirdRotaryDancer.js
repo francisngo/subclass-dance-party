@@ -12,12 +12,13 @@ WeirdRotaryDancer.prototype.oldStep = Dancer.prototype.step;
 WeirdRotaryDancer.prototype.step = function() {
   // call the old version of step at the beginning of any call to this new version of step
   this.oldStep();
-  // call follower specific steps
+  //  check for party time
   var partyFunc = false;
   if (this.itsPartyTime) {
     partyFunc = this.partyTime.bind(this);
     this.rotationSpeed = 20;
   }
+  // perform all other follower steps
   this._offsetDancerStep(partyFunc, 10);
 };
 
@@ -26,3 +27,9 @@ WeirdRotaryDancer.prototype._calculateOffset = function() {
   var leftOffset = Math.cos(this.counter / 30) * 60 + 140 + Math.cos(this.counter / this.rotationSpeed) * this.yFactor;
   return {top: topOffset, left: leftOffset};
 };
+
+WeirdRotaryDancer.prototype._evasiveAction = function() {
+  this.waiting = false;
+};
+
+

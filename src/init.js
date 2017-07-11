@@ -2,6 +2,8 @@ $(document).ready(function() {
   window.dancers = [];
   window.followers = [];
   window.followedObject = null;
+  window.lineUp = false;
+  window.itsPartyTime = false;
   window.colors = ['olive', 'maroon', 'violet', 'lilac', 'red', 'green', 'blue', 'navy', 'aquamrine', 'gold'];
   window.getRandomColor = function() {
     return colors[Math.floor(Math.random() * colors.length)];
@@ -11,6 +13,12 @@ $(document).ready(function() {
   $('.addDancerButton').on('click', function(event) {
     if ($(this).data('is-follower') && !window.followedObject) {
       var $warning = $('<span>NEEDS AN OBJECT TO FOLLOW</span>');
+      $('body').append($warning);
+      setTimeout($warning.hide.bind($warning), 500);
+      return;
+    }
+    if (window.lineUp) {
+      var $warning = $('<span>NO PARYTING NOW!</span>');
       $('body').append($warning);
       setTimeout($warning.hide.bind($warning), 500);
       return;
@@ -31,15 +39,17 @@ $(document).ready(function() {
     $('body').append(dancer.$node);
   });
 
-  // click handler to change dancers
-  $('.changeDancerButton').on('click', function(event) {
-    var dancerChangerProp = $(this).data('dancer-changer-function-name');
-    changeFollowerProps(dancerChangerProp);
-  });
-
   // creates a disco ball and puts it on the page
   var discoBall = new DiscoBall();
   $('body').append(discoBall.$node);
+
+  // starts the party
+  $('#startTheParty').on('click', function(event) {
+    startFollowerParty();
+    $('body .ball-container').addClass('x');
+    $('body .disco').addClass('y');
+    $('body .disco').css('margin', '0');
+  });
 
   // pauses the party
   $('#stopTheParty').on('click', function(event) {
@@ -50,12 +60,6 @@ $(document).ready(function() {
 
     // code to stop dancers here
     window.moveFollowersToSides();
-  });
-
-  $('.changeDancerButton').on('click', function(event) {
-    $('body .ball-container').addClass('x');
-    $('body .disco').addClass('y');
-    $('body .disco').css('margin', '0');
   });
 
   // sets up interactive components

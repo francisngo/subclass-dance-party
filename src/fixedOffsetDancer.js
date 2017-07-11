@@ -3,13 +3,14 @@ var FODancer = function(_, _, _, objectToFollow) {
   this.objectToFollow = objectToFollow || window.followedObject;
   // fast update to follow smooth motion
   this.timeBetweenSteps = 1;
-  // used by subclass that require a steadily incrementing value (e.g. for sine and cosine)
-  this.counter = 1;
   // make it dancy time
   Dancer.call(this, this.top, this.left, this.timeBetweenSteps);
+  // used by subclass that require a steadily incrementing value (e.g. for sine and cosine) or size for collisions
+  this.counter = 1;
+  this.size = Number(this.$node.css('border-radius').slice(0, -2));
   // get them ready for party time
-  this.isPartyTime = false;
-  this.lineUp = false;
+  this.itsPartyTime = window.itsPartyTime;
+  this.lineUp = window.lineUp;
   window.followers.push(this);
   // set random offset and move follower to there
   var randOffset = Math.random() * 2 * Math.PI;
@@ -64,4 +65,15 @@ FODancer.prototype._calculateOffset = function() {
 FODancer.prototype.partyTime = function() {
   this.$node.css('border-color', getRandomColor());
   this.$node.toggleClass('squareDancer');
+};
+
+FODancer.prototype._evasiveManouvre = function(time, func) {
+  time = time || 100;
+  var randomNum = Math.random() * 2 - 1;
+  this.top += 100 * Math.sin(randomNum);
+  this.left += 100 * Math.cos(randomNum);
+  this.$node.animate({'top': this.top, 'left': this.left}, time);
+  this.positionBeforeEvading = this.top;
+  this.waiting = true;
+  setTimeout(func || this._evasiveFollowupAction.bind(this), time + 1);
 };

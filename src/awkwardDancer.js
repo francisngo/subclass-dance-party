@@ -2,14 +2,15 @@ var AwkwardDancer = function(_, _, _, objectToFollow) {
   FODancer.call(this, arguments);
   this.$node.on('mouseover', (function(event) {
     console.log('mouse');
-    this.moused = true;
+    this.stepping = false;
     this.bobbing = false;
-    this._evasiveAction();
+    this._evasiveManouvre();
   }).bind(this));
   this.$node.css({
     'border': '25px solid ' + getRandomColor(),
     'border-radius': '25px'
   });
+  this.stepping = true;
 };
 
 AwkwardDancer.prototype = Object.create(FODancer.prototype);
@@ -19,12 +20,21 @@ AwkwardDancer.prototype.oldStep = Dancer.prototype.step;
 AwkwardDancer.prototype.step = function() {
   // call the old version of step at the beginning of any call to this new version of step
   this.oldStep();
-  // check if avoiding mouse
-  if (this.moused) {
-    this.counter++;
+  // check for collisions
+  this._checkForCollisions();
+  if (this.collided) {
+    this.collided = false;
+    this._evasiveManouvre(400);
+    return;
+  }
+  // check if should be stepping
+  if (!this.stepping) {
     if (this.bobbing && !this.lineUp) {
       this._bobAwkwardly();
     }
+    return;
+  }
+  if (this.waiting) {
     return;
   }
   // set up party time and call follower step
@@ -42,18 +52,35 @@ AwkwardDancer.prototype._calculateOffset = function() {
 };
 
 AwkwardDancer.prototype._bobAwkwardly = function(factor) {
-  // use setTimeout... and animate
-  this.top = this.base+ Math.sin(this.counter / 50) * 50;
+  // waiting to complete evasive manouvre
+  if (this.waiting) {
+    return;
+  }
+  // check for collisions and avoid again
+  this._checkForCollisions();
+  if (this.collided) {
+    this.collided = false;
+    this._evasiveManouvre();
+  }
+  // bob
+  this.top = this.positionBeforeEvading + Math.sin(this.counter / 50) * 50;
   this.setPosition(this.top, this.left);
 };
 
-AwkwardDancer.prototype._evasiveAction = function() {
-  var randomNum = Math.random() * 2 - 1;
-  this.top += 100 * Math.sin(randomNum);
-  this.left += 100 * Math.cos(randomNum);
-  this.$node.animate({'top': this.top, 'left': this.left}, 100);
-  this.base = this.top;
-  setTimeout((function() {
-    this.bobbing = true;
-  }).bind(this), 101);
+AwkwardDancer.prototype._evasiveFollowupAction = function() {
+  this.waiting = false;
+  this.bobbing = true;
+};
+
+AwkwardDancer.prototype._cartesianDistance = function(otherFollower) {
+  return Math.sqrt(Math.pow(this.top - otherFollower.top, 2) + Math.pow(this.left - otherFollower.top, 2)) <= this.size;
+};
+
+AwkwardDancer.prototype._checkForCollisions = function() {
+  return window.followers.reduce((function(acc, follower) {
+    if (follower === this) {
+      return acc;
+    }
+    return acc || this._cartesianDistance(follower);
+  }).bind(this), false);
 };

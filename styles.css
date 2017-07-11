@@ -2,21 +2,20 @@ body, html{
   height:100%;
 }
 body{
-  margin: 0 auto;
+  margin: 0;
   background-color:black;
   font-size: 18px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-align: center;
 }
 body, a:link, a:visited, a:active{
   color: lightblue;
 }
-.title, .addDancerButton, .changeDancerButton, .textHint, .stopTheParty{
+.title, .addDancerButton, .changeDancerButton, .textHint, .startTheParty, .stopTheParty{
   text-decoration: none;
   padding:10px 12px;
   float:left;
 }
-.addDancerButton:hover, .changeDancerButton:hover, .textHint:hover, .stopTheParty:hover{
+.addDancerButton:hover, .changeDancerButton:hover, .textHint:hover, .startTheParty:hover, .stopTheParty:hover{
   text-decoration: none;
   background-color: white;
   color: black;
@@ -36,6 +35,9 @@ body, a:link, a:visited, a:active{
 .squareDancer{
   border:10px solid red;
   position:absolute;
+}
+.deadDancer {
+  display: none;
 }
 .largeObject{
   height: 100px;
