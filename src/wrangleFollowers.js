@@ -21,3 +21,20 @@ moveFollowersToSides = function() {
     follower.$node.animate({'top': follower.top, 'left': follower.left});
   });
 }
+
+simulateCollision = function() {
+  // iterate through all followers and set to collided
+  window.followers
+}
+
+changeFollowerProps = function(dancerChangerProp) {
+  console.log(dancerChangerProp);
+  window.followers.forEach(function(follower) {
+    follower[dancerChangerProp] = !follower[dancerChangerProp];
+    follower.lineUp = false;
+  });
+
+  var MDK = function() {
+
+  }
+}

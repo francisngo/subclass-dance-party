@@ -9,19 +9,6 @@ $(document).ready(function() {
 
   // click handler to add new dancers
   $('.addDancerButton').on('click', function(event) {
-    /* This function sets up the click handlers for the create-dancer
-     * buttons on dancefloor.html. You should only need to make one small change to it.
-     * As long as the "data-dancer-maker-function-name" attribute of a
-     * class="addDancerButton" DOM node matches one of the names of the
-     * maker functions available in the global scope, clicking that node
-     * will call the function to make the dancer.
-     */
-
-    /* dancerMakerFunctionName is a string which must match
-     * one of the dancer maker functions available in global scope.
-     * A new object of the given type will be created and added
-     * to the stage.
-     */
     if ($(this).data('is-follower') && !window.followedObject) {
       var $warning = $('<span>NEEDS AN OBJECT TO FOLLOW</span>');
       $('body').append($warning);
@@ -47,11 +34,7 @@ $(document).ready(function() {
   // click handler to change dancers
   $('.changeDancerButton').on('click', function(event) {
     var dancerChangerProp = $(this).data('dancer-changer-function-name');
-    console.log(dancerChangerProp);
-    window.followers.forEach(function(follower) {
-      follower[dancerChangerProp] = !follower[dancerChangerProp];
-      follower.lineUp = false;
-    });
+    changeFollowerProps(dancerChangerProp);
   });
 
   // creates a disco ball and puts it on the page
@@ -61,9 +44,18 @@ $(document).ready(function() {
   // pauses the party
   $('#stopTheParty').on('click', function(event) {
     // code to stop disco ball here
+    $('body .ball-container').removeClass('x');
+    $('body .disco').removeClass('y');
+    $('body .disco').css('margin', '0 auto');
 
     // code to stop dancers here
     window.moveFollowersToSides();
+  });
+
+  $('.changeDancerButton').on('click', function(event) {
+    $('body .ball-container').addClass('x');
+    $('body .disco').addClass('y');
+    $('body .disco').css('margin', '0');
   });
 
   // sets up interactive components
