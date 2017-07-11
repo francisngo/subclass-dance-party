@@ -10,19 +10,23 @@
     <script src="src/staticTestObject.js"></script>
     <script src="src/fixedOffsetDancer.js"></script>
     <script src="src/rotaryDancer.js"></script>
+    <script src="src/extRotaryDancer.js"></script>
+    <script src="src/weirdRotaryDancer.js"></script>
+    <script src="src/awkwardDancer.js"></script>
     <script src="src/discoBall.js"></script>
+    <script src="src/wrangleFollowers.js"></script>
   </head>
   <body>
     <div class="topbar">
-      <span class="title">object dance party</span>
-      <a href="#" class="addDancerButton" data-dancer-maker-function-name="BlinkyDancer">add a blinky dancer</a>
-      <a href="#" class="addDancerButton" data-dancer-maker-function-name="MovingTestObject">add a moving test object</a>
-      <a href="#" class="addDancerButton" data-dancer-maker-function-name="StaticTestObject">add a static test object</a>
-      <a href="#" class="addDancerButton" data-dancer-maker-function-name="FODancer">add a follower</a>
-      <a href="#" class="addDancerButton" data-dancer-maker-function-name="RotaryDancer">add a rotator</a>
-    </div>
-    <div class="container">
-      
+      <span class="title">Object Dance Party</span>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="FODancer" data-is-follower="true">Fixed Follower</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="RotaryDancer" data-is-follower="true">Rotator</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="ExtRotaryDancer" data-is-follower="true">Ext Rotator</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="AwkwardDancer" data-is-follower="true">Socially Awkward</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="WeirdRotaryDancer" data-is-follower="true">Something Weird</a>
+      <a href="#" class="changeDancerButton" data-dancer-changer-function-name="itsPartyTime">Start The Party!</a>
+      <a href="#" id="stopTheParty" class="stopTheParty">Stop The Party :(</a>
+      <span class="textHint">m: Moving s: static</span>
     </div>
     <script src="src/init.js"></script>
   </body>

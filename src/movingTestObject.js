@@ -1,8 +1,5 @@
 var MovingTestObject = function(top, left, _) {
-  Dancer.apply(this, arguments);
-  this.timeBetweenSteps = 500;
-  this.$node.addClass('largeObject');
-  window.followedObject = this;
+  StaticTestObject.apply(this, arguments);
 };
 
 MovingTestObject.prototype = Object.create(Dancer.prototype);
@@ -16,12 +13,12 @@ MovingTestObject.prototype.step = function() {
   // See http://api.jquery.com/category/effects/ for this and
   // other effects you can use on a jQuery-wrapped html tag.
   if (Math.random() < .5) {
-    this.left -= Math.random() * 40;
-    this.top += Math.random() * 40;
+    this.left -= Math.random() * 100;
+    this.top += Math.random() * 100;
   } else {
-    this.left += Math.random() * 40;
-    this.top -= Math.random() * 40;
+    this.left += Math.random() * 100;
+    this.top -= Math.random() * 100;
   }
   // this.setPosition(this.top, this.left);
-  this.$node.animate({top: this.top, left: this.left}, 499);
+  this.$node.animate({top: this.top, left: this.left}, this.timeBetweenSteps);
 };

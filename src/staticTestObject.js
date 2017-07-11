@@ -1,8 +1,10 @@
 var StaticTestObject = function(top, left, _) {
   Dancer.apply(this, arguments);
-  this.timeBetweenSteps = 500;
+  this.timeBetweenSteps = 700;
   this.$node.addClass('largeObject');
   window.followedObject = this;
+  this.$node.css('border-color', getRandomColor());
+  this.$node.css('background-color', getRandomColor());
 };
 
 StaticTestObject.prototype = Object.create(Dancer.prototype);
