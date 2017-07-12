@@ -16,7 +16,7 @@ WeirdRotaryDancer.prototype.step = function() {
   var partyFunc = false;
   if (this.itsPartyTime) {
     partyFunc = this.partyTime.bind(this);
-    this.rotationSpeed = 20;
+    this.rotationSpeed = 35;
   }
   // perform all other follower steps
   this._offsetDancerStep(partyFunc, 10);

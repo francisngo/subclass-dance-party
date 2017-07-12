@@ -4,7 +4,8 @@ $(document).ready(function() {
   window.followedObject = null;
   window.lineUp = false;
   window.itsPartyTime = false;
-  window.colors = ['olive', 'maroon', 'violet', 'lilac', 'red', 'green', 'blue', 'navy', 'aquamrine', 'gold'];
+  window.awkwardDancers = 0;
+  window.colors = ['olive', 'maroon', 'violet', 'lilac', 'red', 'green', 'blue', 'navy', 'aquamarine', 'gold'];
   window.getRandomColor = function() {
     return colors[Math.floor(Math.random() * colors.length)];
   };
@@ -22,6 +23,11 @@ $(document).ready(function() {
       $('body').append($warning);
       setTimeout($warning.hide.bind($warning), 500);
       return;
+    }
+    // disable dancers button if dancefloor exceeds 10
+    if (window.awkwardDancers === 10) {
+      $('.awkwardDancer').prop('disabled', true);
+      alert('Too Many Ugly Faces On The Dancefloor');
     }
     var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
 
@@ -46,13 +52,21 @@ $(document).ready(function() {
   // starts the party
   $('#startTheParty').on('click', function(event) {
     startFollowerParty();
-    $('body .ball-container').addClass('x');
-    $('body .disco').addClass('y');
-    $('body .disco').css('margin', '0');
+    setTimeout(function() {
+      $('body .ball-container').addClass('x');
+      $('body .disco').addClass('y');
+      $('body .disco').css('margin', '0');
+    }, 350);
   });
+
+  // black backgrond
+  var blackBackground = function() {
+    $('body').css('background-color', 'black');
+  };
 
   // pauses the party
   $('#stopTheParty').on('click', function(event) {
+    setTimeout(blackBackground(), 300);
     // code to stop disco ball here
     $('body .ball-container').removeClass('x');
     $('body .disco').removeClass('y');
@@ -60,6 +74,12 @@ $(document).ready(function() {
 
     // code to stop dancers here
     window.moveFollowersToSides();
+  });
+
+  // kills the dancers
+  $('#killThemAll').on('click', function(event) {
+    MDK();
+    setTimeout(blackBackground(), 600);
   });
 
   // sets up interactive components

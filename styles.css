@@ -7,12 +7,37 @@ body{
   font-size: 18px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-body, a:link, a:visited, a:active{
-  color: lightblue;
+button {
+  border: 0;
+  font-size: 16px;
+  color: white;
+  height: 45px;
+  text-align: center;
+}
+.darkblue{
+  background-color: #4285F4;
+}
+.lightblue{
+  background-color: #4abde8;
+}
+.cyan{
+  background-color: #30cfc0;
+}
+.green{
+  background-color: #00d255;
+}
+.violet{
+  background-color: #b579d2;
+}
+.orange{
+  background-color: #ff961f;
+}
+.red{
+  background-color: #db0000;
 }
 .title, .addDancerButton, .changeDancerButton, .textHint, .startTheParty, .stopTheParty{
   text-decoration: none;
-  padding:10px 12px;
+  padding:11px 12px;
   float:left;
 }
 .addDancerButton:hover, .changeDancerButton:hover, .textHint:hover, .startTheParty:hover, .stopTheParty:hover{
@@ -21,14 +46,16 @@ body, a:link, a:visited, a:active{
   color: black;
 }
 .topbar{
-  height:42px;
-  background-color: #555;
+  height:45px;
+  background-color: white;
 }
 .title{
-  background-color: #777;
+  height: 23px;
+  background-color: white;
+  color: black;
 }
 .dancer{
-  border:10px solid red;
+  border:10px solid;
   border-radius:10px;
   position:absolute;
 }
@@ -38,6 +65,9 @@ body, a:link, a:visited, a:active{
 }
 .deadDancer {
   display: none;
+}
+.alvin {
+  border-radius: 30px;
 }
 .largeObject{
   height: 100px;
@@ -53,36 +83,38 @@ body, a:link, a:visited, a:active{
   margin: 0;
 }
 .x{
-  -webkit-animation: x 10s linear infinite alternate;
-  -moz-animation: x 10s linear infinite alternate;
-  animation: x 10s linear infinite alternate;
+  -webkit-animation: x 15s linear infinite alternate;
+  animation: x 15s linear infinite alternate;
 }
+
 .y{
   -webkit-animation: y 5s linear infinite alternate;
-  -moz-animation: y 5s linear infinite alternate;
   animation: y 5s linear infinite alternate;
 }
-@-webkit-keyframes x{
-   100% {
-   -webkit-transform: translateX(calc(100vw - 300px));
-   transform: translateX(calc(100vw - 300px));
+@-webkit-keyframes x {
+  100% {
+    -webkit-transform: translateX(calc(100vw - 300px));
+    transform: translateX(calc(100vw - 300px));
   }
 }
-@keyframes x{
-   100% {
-   -webkit-transform: translateX(calc(100vw - 300px));
-   transform: translateX(calc(100vw - 300px));
+
+@keyframes x {
+  100% {
+    -webkit-transform: translateX(calc(100vw - 300px));
+    transform: translateX(calc(100vw - 300px));
   }
 }
-@-webkit-keyframes y{
-   100% {
-   -webkit-transform: translateY(calc(100vh - 300px));
-   transform: translateY(calc(100vh - 300px));
+
+@-webkit-keyframes y {
+  100% {
+    -webkit-transform: translateY(calc(100vh - 300px));
+    transform: translateY(calc(100vh - 300px));
   }
 }
-@keyframes y{
-   100% {
-   -webkit-transform: translateY(calc(100vh - 300px));
-   transform: translateY(calc(100vh - 300px));
+
+@keyframes y {
+  100% {
+    -webkit-transform: translateY(calc(100vh - 300px));
+    transform: translateY(calc(100vh - 300px));
   }
 }

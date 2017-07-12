@@ -6,8 +6,13 @@ var FODancer = function(_, _, _, objectToFollow) {
   // make it dancy time
   Dancer.call(this, this.top, this.left, this.timeBetweenSteps);
   // used by subclass that require a steadily incrementing value (e.g. for sine and cosine) or size for collisions
-  this.counter = 1;
-  this.size = Number(this.$node.css('border-radius').slice(0, -2));
+  this.counter = Math.floor(Math.random() * 6000);
+  // this.size = Number(this.$node.css('border-radius').slice(0, -2));
+  this.size = Math.floor(Math.random() * 5 + 10);
+  this.$node.css({
+    'border': this.size + 'px solid ' + getRandomColor(),
+    'border-radius': this.size +'px'
+  });
   // get them ready for party time
   this.itsPartyTime = window.itsPartyTime;
   this.lineUp = window.lineUp;
@@ -47,7 +52,7 @@ FODancer.prototype._offsetDancerStep = function(infrequentFunc, throttle) {
   }
   this._updatePosition();
   this.setPosition(this.top, this.left);
-  if (this.counter++ % (throttle || 100) === 0 && infrequentFunc) {
+  if (this.counter++ % (throttle || 300) === 0 && infrequentFunc) {
     infrequentFunc();
   }
 };
@@ -64,7 +69,8 @@ FODancer.prototype._calculateOffset = function() {
 
 FODancer.prototype.partyTime = function() {
   this.$node.css('border-color', getRandomColor());
-  this.$node.toggleClass('squareDancer');
+  $('body').css('background-color', getRandomColor());
+  // this.$node.toggleClass('funky');
 };
 
 FODancer.prototype._evasiveManouvre = function(time, func) {

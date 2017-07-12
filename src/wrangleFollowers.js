@@ -23,11 +23,24 @@ var moveFollowersToSides = function() {
 };
 
 var startFollowerParty = function() {
-  changeFollowerProps('itsPartyTime');
-  if (window.lineUp) {
-    console.log('change lineup');
-    changeFollowerProps('lineUp');
+  var partyMode = function() {
+    changeFollowerProps('itsPartyTime');
+    if (window.lineUp) {
+      console.log('change lineup');
+      changeFollowerProps('lineUp');
+    }
+  };
+  // instantaneous if dancefloor pumping
+  if (!window.lineUp) {
+    partyMode();
+    return;
   }
+  // delay for animation if line up
+  setTimeout(partyMode, 350);
+  window.followers.forEach(function(follower) {
+    follower._updatePosition();
+    follower.$node.animate({'top': follower.top, 'left': follower.left}, 350);
+  });
 };
 
 var simulateCollision = function() {
@@ -46,11 +59,18 @@ var changeFollowerProps = function(dancerChangerProp) {
 };
 
 var MDK = function() {
+  window.itsPartyTime = false;
   window.followers.forEach(function(follower) {
     follower.setPosition(0, 0);
     follower.dead = true;
-    follower.$node.addClass('deadDancer');
+    follower.$node.hide('slow');
     follower.deadStep = follower.step;
-    follower.step = null;
+    setTimeout(function() {
+      this.step = null;
+    }.bind(follower), 500);
+  });
+  setTimeout(function() {
+    window.followers = [];
+    window.awkwardDancers = 0;
   });
 };

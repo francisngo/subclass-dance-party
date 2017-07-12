@@ -14,7 +14,7 @@ ExtRotaryDancer.prototype.step = function() {
   var partyFunc = false;
   if (this.itsPartyTime) {
     partyFunc = this.partyTime.bind(this);
-    this.rotationSpeed = 20;
+    this.rotationSpeed = 45;
   }
   this._offsetDancerStep(partyFunc, 10);
 };
